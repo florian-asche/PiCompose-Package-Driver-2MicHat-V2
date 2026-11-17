@@ -3,7 +3,9 @@ Section: sound
 Priority: optional
 Maintainer: Florian Asche <github@florian-asche.de>
 Build-Depends: debhelper-compat (= 13),
- device-tree-compiler
+ ca-certificates,
+ device-tree-compiler,
+ git
 Standards-Version: 4.7.0
 Homepage: https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2
 Rules-Requires-Root: no

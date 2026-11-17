@@ -11,3 +11,4 @@ debian/files
 debian/picompose-driver-2michat-v2/
 debian/debhelper-build-stamp
 out/
+build/

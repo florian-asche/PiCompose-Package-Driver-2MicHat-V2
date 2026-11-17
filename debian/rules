@@ -1,13 +1,21 @@
 #!/usr/bin/make -f
 
+# The overlay is built from the repository of Seeed, like the image build did.
+SEEED_REPOSITORY = https://github.com/Seeed-Studio/seeed-linux-dtoverlays.git
+SEEED_DIR = build/seeed-linux-dtoverlays
+
 %:
 	dh $@
 
 override_dh_auto_build:
-	dtc -@ -Wno-unit_address_vs_reg -I dts -O dtb -o respeaker-2mic-v2_0.dtbo src/respeaker-2mic-v2_0-overlay.dts
+	rm -rf build
+	mkdir build
+	git clone --depth 1 $(SEEED_REPOSITORY) $(SEEED_DIR)
+	cd $(SEEED_DIR) && make overlays/rpi/respeaker-2mic-v2_0-overlay.dtbo
+	cp $(SEEED_DIR)/overlays/rpi/respeaker-2mic-v2_0-overlay.dtbo build/respeaker-2mic-v2_0.dtbo
 
 override_dh_auto_clean:
-	rm -f respeaker-2mic-v2_0.dtbo
+	rm -rf build
 
 override_dh_installsystemd:
 	dh_installsystemd --no-start --no-restart-after-upgrade configure_audio.service
