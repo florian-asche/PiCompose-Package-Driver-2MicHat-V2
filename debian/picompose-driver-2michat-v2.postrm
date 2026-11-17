@@ -1,0 +1,41 @@
+#!/bin/sh
+set -e
+
+# Boot configuration file of the Raspberry Pi
+boot_config() {
+    config=/boot/config.txt
+    [ -f /boot/firmware/config.txt ] && config=/boot/firmware/config.txt
+    [ -f /boot/firmware/usercfg.txt ] && config=/boot/firmware/usercfg.txt
+    echo "$config"
+}
+
+# Make sure a line is in the boot configuration exactly once
+add_boot_line() {
+    config="$(boot_config)"
+    [ -f "$config" ] || return 0
+    grep -qx "$1" "$config" || echo "$1" >> "$config"
+}
+
+# Switch a commented parameter on
+enable_boot_param() {
+    config="$(boot_config)"
+    [ -f "$config" ] || return 0
+    sed -i -e "s:^#$1=on:$1=on:" "$config"
+    grep -qx "$1=on" "$config" || echo "$1=on" >> "$config"
+}
+
+remove_boot_line() {
+    config="$(boot_config)"
+    [ -f "$config" ] || return 0
+    sed -i "\\#^$1\$#d" "$config"
+}
+
+case "$1" in
+    remove | purge)
+        remove_boot_line dtoverlay=respeaker-2mic-v2_0
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0
