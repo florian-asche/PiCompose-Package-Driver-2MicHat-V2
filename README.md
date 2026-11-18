@@ -1,5 +1,7 @@
 # PiCompose-Package-Driver-2MicHat-V2
 
+[![Version](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2/actions/workflows/version.yml/badge.svg?branch=main)](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2/actions/workflows/version.yml) [![GitHub Release Version](https://img.shields.io/github/v/release/florian-asche/PiCompose-Package-Driver-2MicHat-V2?label=version)](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2/releases) [![GitHub License](https://img.shields.io/github/license/florian-asche/PiCompose-Package-Driver-2MicHat-V2)](https://github.com/florian-asche/PiCompose-Package-Driver-2MicHat-V2/blob/main/LICENSE)
+
 Package `picompose-driver-2michat-v2` for the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository). It is the driver for the [ReSpeaker 2-Mics Pi HAT V2.0](https://wiki.seeedstudio.com/respeaker_2_mics_pi_hat/), which has a TLV320AIC3104 codec (I2C address 0x18). Version 1 of the HAT has a different codec and is the package `picompose-driver-2michat-v1`. It is the stage `02-stage-audiodriver-2michat-v2` of the [PiCompose](https://github.com/florian-asche/PiCompose) image as a package.
 
 What differs from how the stage does it is documented in [diff.md](diff.md) (in German).
