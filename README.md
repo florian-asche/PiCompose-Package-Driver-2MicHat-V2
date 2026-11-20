@@ -4,8 +4,6 @@
 
 Package `picompose-driver-2michat-v2` for the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository). It is the driver for the [ReSpeaker 2-Mics Pi HAT V2.0](https://wiki.seeedstudio.com/respeaker_2_mics_pi_hat/), which has a TLV320AIC3104 codec (I2C address 0x18). Version 1 of the HAT has a different codec and is the package `picompose-driver-2michat-v1`. It is the stage `02-stage-audiodriver-2michat-v2` of the [PiCompose](https://github.com/florian-asche/PiCompose) image as a package.
 
-What differs from how the stage does it is documented in [diff.md](diff.md) (in German).
-
 ## Contents
 
 | Part | Files |
@@ -13,9 +11,8 @@ What differs from how the stage does it is documented in [diff.md](diff.md) (in 
 | Device tree overlay | `/boot/firmware/overlays/respeaker-2mic-v2_0.dtbo`, built while the package is built, see below |
 | Boot configuration | The `postinst` enables `dtparam=i2c_arm=on` and adds `dtoverlay=respeaker-2mic-v2_0` to the boot configuration (`config.txt`, `usercfg.txt` if it exists). The `postrm` removes the overlay line again. Both are safe to run more than once. |
 | WirePlumber | `/etc/wireplumber/wireplumber.conf.d/51-disable-acp.conf` turns off the ALSA card profile handling (ACP) |
-| Volume setup | `/usr/bin/configure_audio.sh`, `configure_audio.service` (enabled, not started at install) |
 
-The kernel has the driver for the codec (`snd-soc-tlv320aic3x`), so no kernel module is built. After a reboot the card appears as `seeed2micvoicec`. The volume service waits for its `PCM` control, sets the outputs to 100 %, the input gain to 80 % and stores the ALSA state.
+The kernel has the driver for the codec (`snd-soc-tlv320aic3x`), so no kernel module is built. After a reboot the card appears as `seeed2micvoicec`. The package does not set the volume of the card.
 
 ## Source of the overlay
 
@@ -23,7 +20,7 @@ The image clones the repository [seeed-linux-dtoverlays](https://github.com/Seee
 
 ## One driver per system
 
-All `picompose-driver-*` packages provide `picompose-audio-driver` and conflict with it. Installing one removes another, because a system has one audio device and all of them install `configure_audio.sh` and `configure_audio.service`.
+All `picompose-driver-*` packages provide `picompose-audio-driver` and conflict with it. Installing one removes another, because a system has one audio device.
 
 ## Versioning and changelog
 
