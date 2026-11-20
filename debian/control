@@ -12,18 +12,16 @@ Rules-Requires-Root: no
 
 Package: picompose-driver-2michat-v2
 Architecture: all
-Depends: ${misc:Depends},
- wireplumber,
- alsa-utils
+Depends: ${misc:Depends}
 Provides: picompose-audio-driver
 Conflicts: picompose-audio-driver
 Replaces: picompose-audio-driver
 Description: PiCompose driver for the ReSpeaker 2-Mics Pi HAT V2.0
- Device tree overlay and audio setup for the ReSpeaker 2-Mics Pi HAT V2.0,
+ Device tree overlay for the ReSpeaker 2-Mics Pi HAT V2.0,
  which has a TLV320AIC3104 codec. The kernel already has the driver for the
  codec, so the package only needs the overlay that connects it to the I2S
  pins of the Raspberry Pi. It enables I2C and loads the overlay in the boot
- configuration, and sets the volume of the card when the system starts.
+ configuration.
  .
  The package provides picompose-audio-driver, so only one audio driver package
  can be installed.
