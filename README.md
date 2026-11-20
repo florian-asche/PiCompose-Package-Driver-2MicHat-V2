@@ -4,6 +4,10 @@
 
 Package `picompose-driver-2michat-v2` for the [PiCompose APT repository](https://github.com/florian-asche/PiCompose-Repository). It is the driver for the [ReSpeaker 2-Mics Pi HAT V2.0](https://wiki.seeedstudio.com/respeaker_2_mics_pi_hat/), which has a TLV320AIC3104 codec (I2C address 0x18). Version 1 of the HAT has a different codec and is the package `picompose-driver-2michat-v1`. It is the stage `02-stage-audiodriver-2michat-v2` of the [PiCompose](https://github.com/florian-asche/PiCompose) image as a package.
 
+## Requirements
+
+The package is for Raspberry Pi OS only. It installs the overlay to `/boot/firmware/overlays` and changes the boot configuration of the Raspberry Pi (`config.txt`, `usercfg.txt`), which only has an effect on the Raspberry Pi firmware. The package does not check this when it is installed, so on any other system it installs but does nothing.
+
 ## Contents
 
 | Part | Files |
