@@ -1,3 +1,9 @@
+picompose-driver-2michat-v2 (0.1.0) trixie; urgency=medium
+
+  * Remove the volume setup and the wireplumber dependency from the package (#3)
+
+ -- Florian Asche <github@florian-asche.de>  Fri, 20 Nov 2026 21:32:36 +0000
+
 picompose-driver-2michat-v2 (0.0.2) trixie; urgency=medium
 
   * Check for updates of the GitHub Actions daily (#2)
