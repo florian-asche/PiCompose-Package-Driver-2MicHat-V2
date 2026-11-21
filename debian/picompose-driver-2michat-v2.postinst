@@ -1,6 +1,17 @@
 #!/bin/sh
 set -e
 
+# Overlay directory of the Raspberry Pi firmware. It is on a FAT partition, which has no hard links,
+# so dpkg cannot replace files there during an upgrade. The package copies the overlay instead.
+OVERLAY=/usr/lib/picompose-driver-2michat-v2/respeaker-2mic-v2_0.dtbo
+
+overlays_dir() {
+    for dir in /boot/firmware/overlays /boot/overlays; do
+        [ -d "$dir" ] && { echo "$dir"; return 0; }
+    done
+    return 0
+}
+
 # Boot configuration file of the Raspberry Pi
 boot_config() {
     config=/boot/config.txt
@@ -32,6 +43,10 @@ remove_boot_line() {
 
 case "$1" in
     configure)
+        # Copy the overlay to the firmware partition
+        dir="$(overlays_dir)"
+        [ -z "$dir" ] || install -m 644 "$OVERLAY" "$dir/respeaker-2mic-v2_0.dtbo"
+
         # Enable I2C and load the overlay of the ReSpeaker 2-Mics Pi HAT V2.0
         enable_boot_param dtparam=i2c_arm
         add_boot_line dtoverlay=respeaker-2mic-v2_0

@@ -36,6 +36,6 @@ The package has to work on the Raspberry Pi OS that the PiCompose images are bui
    - Defaults of the base system that the package relies on: the user `pi` with the UID 1000, systemd, PipeWire and WirePlumber, `cron`.
    Specific to this package:
    - The kernel of the release still has the driver `snd-soc-tlv320aic3x`, and the overlay that `debian/rules` builds from the repository of Seeed still fits it and still compiles with the `dtc` of the release.
-   - The boot configuration: `/boot/firmware/config.txt`, `usercfg.txt` and the overlay directory `/boot/firmware/overlays`.
+   - The boot configuration: `/boot/firmware/config.txt`, `usercfg.txt` and the overlay directory `/boot/firmware/overlays`. `/boot/firmware` is a FAT partition: dpkg cannot replace files there (no hard links), so the package must not install files below `/boot`, the `postinst` copies them.
    - PipeWire and WirePlumber, which read the profile set of the package (udev property `ACP_PROFILE_SET`, files below `/usr/share/alsa-card-profile/mixer`) but are not dependencies of it. Check that the ACP of the installed PipeWire still reads the property and the two file locations.
 3. **Write down the verdict**: which release, kernel and image definition you looked at, what you checked and how (commands), what you could not check (hardware), and what has to change if the base moves, for example to a new Debian release. If a change makes the package fit only a newer or only an older base than the images use, say so and ask the developer before going on.
