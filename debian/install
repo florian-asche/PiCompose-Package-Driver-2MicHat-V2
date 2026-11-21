@@ -1,2 +1,2 @@
-files/etc/* etc/
+files/usr/* usr/
 build/respeaker-2mic-v2_0.dtbo boot/firmware/overlays/

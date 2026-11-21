@@ -14,9 +14,9 @@ The package is for Raspberry Pi OS only. It installs the overlay to `/boot/firmw
 | --- | --- |
 | Device tree overlay | `/boot/firmware/overlays/respeaker-2mic-v2_0.dtbo`, built while the package is built, see below |
 | Boot configuration | The `postinst` enables `dtparam=i2c_arm=on` and adds `dtoverlay=respeaker-2mic-v2_0` to the boot configuration (`config.txt`, `usercfg.txt` if it exists). The `postrm` removes the overlay line again. Both are safe to run more than once. |
-| WirePlumber | `/etc/wireplumber/wireplumber.conf.d/51-disable-acp.conf` turns off the ALSA card profile handling (ACP) |
+| Volume | A profile set for the sound card, so the volume of the sink controls `HP DAC` and `Line DAC` of the codec: `/usr/lib/udev/rules.d/89-picompose-driver-2michat-v2.rules` selects it, `/usr/share/alsa-card-profile/mixer/profile-sets/picompose-2michat-v2.conf` and `/usr/share/alsa-card-profile/mixer/paths/picompose-2michat-v2-output.conf` define it |
 
-The kernel has the driver for the codec (`snd-soc-tlv320aic3x`), so no kernel module is built. After a reboot the card appears as `seeed2micvoicec`. The package does not set the volume of the card.
+The kernel has the driver for the codec (`snd-soc-tlv320aic3x`), so no kernel module is built. After a reboot the card appears as `seeed2micvoicec`. The codec starts with `HP DAC` and `Line DAC` at -23.5 dB. The profile set makes WirePlumber (ACP) merge both into the volume of the sink, so a volume of 100 % puts both at 0 dB. The profile set takes effect when the card is detected, so after a reboot. It was not tested on hardware.
 
 ## Source of the overlay
 
