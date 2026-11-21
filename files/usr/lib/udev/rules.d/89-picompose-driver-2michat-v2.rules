@@ -1,0 +1,3 @@
+# Give the sound card of the ReSpeaker 2-Mics Pi HAT V2.0 its own profile set, so the volume of the
+# sink controls the DAC of the codec (see picompose-2michat-v2.conf).
+SUBSYSTEM=="sound", KERNEL=="card*", ATTR{id}=="seeed2micvoicec", ENV{ACP_PROFILE_SET}="picompose-2michat-v2.conf"
