@@ -1,3 +1,9 @@
+picompose-driver-2michat-v2 (0.2.0) trixie; urgency=medium
+
+  * Replace the disable-acp rule with a profile set that controls the DAC volume (#4)
+
+ -- Florian Asche <github@florian-asche.de>  Sat, 21 Nov 2026 00:59:14 +0000
+
 picompose-driver-2michat-v2 (0.1.0) trixie; urgency=medium
 
   * Remove the volume setup and the wireplumber dependency from the package (#3)
