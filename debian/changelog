@@ -1,3 +1,9 @@
+picompose-driver-2michat-v2 (0.2.1) trixie; urgency=medium
+
+  * Copy the overlay to the FAT boot partition in the postinst so upgrades work (#5)
+
+ -- Florian Asche <github@florian-asche.de>  Sat, 21 Nov 2026 01:39:01 +0000
+
 picompose-driver-2michat-v2 (0.2.0) trixie; urgency=medium
 
   * Replace the disable-acp rule with a profile set that controls the DAC volume (#4)
