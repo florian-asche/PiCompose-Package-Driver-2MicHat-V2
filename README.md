@@ -6,13 +6,13 @@ Package `picompose-driver-2michat-v2` for the [PiCompose APT repository](https:/
 
 ## Requirements
 
-The package is for Raspberry Pi OS only. It installs the overlay to `/boot/firmware/overlays` and changes the boot configuration of the Raspberry Pi (`config.txt`, `usercfg.txt`), which only has an effect on the Raspberry Pi firmware. The package does not check this when it is installed, so on any other system it installs but does nothing.
+The package is for Raspberry Pi OS only. It copies the overlay to `/boot/firmware/overlays` and changes the boot configuration of the Raspberry Pi (`config.txt`, `usercfg.txt`), which only has an effect on the Raspberry Pi firmware. The package does not check this when it is installed, so on any other system it installs but does nothing.
 
 ## Contents
 
 | Part | Files |
 | --- | --- |
-| Device tree overlay | `/boot/firmware/overlays/respeaker-2mic-v2_0.dtbo`, built while the package is built, see below |
+| Device tree overlay | `/usr/lib/picompose-driver-2michat-v2/respeaker-2mic-v2_0.dtbo`, built while the package is built, see below. The `postinst` copies it to `/boot/firmware/overlays/respeaker-2mic-v2_0.dtbo` (or `/boot/overlays` if that is where the overlays are), the `postrm` removes the copy. |
 | Boot configuration | The `postinst` enables `dtparam=i2c_arm=on` and adds `dtoverlay=respeaker-2mic-v2_0` to the boot configuration (`config.txt`, `usercfg.txt` if it exists). The `postrm` removes the overlay line again. Both are safe to run more than once. |
 | Volume | A profile set for the sound card, so the volume of the sink controls `HP DAC` and `Line DAC` of the codec: `/usr/lib/udev/rules.d/89-picompose-driver-2michat-v2.rules` selects it, `/usr/share/alsa-card-profile/mixer/profile-sets/picompose-2michat-v2.conf` and `/usr/share/alsa-card-profile/mixer/paths/picompose-2michat-v2-output.conf` define it |
 
@@ -20,7 +20,7 @@ The kernel has the driver for the codec (`snd-soc-tlv320aic3x`), so no kernel mo
 
 ## Source of the overlay
 
-The image clones the repository [seeed-linux-dtoverlays](https://github.com/Seeed-Studio/seeed-linux-dtoverlays) while it is built and runs `make overlays/rpi/respeaker-2mic-v2_0-overlay.dtbo`. The package build (`debian/rules`) does the same, so building needs network access, and it uses the state of the default branch at that time. No source is stored in this repository. The overlay is installed to `/boot/firmware/overlays`, where Raspberry Pi OS (Trixie) keeps them. The change takes effect after a reboot.
+The image clones the repository [seeed-linux-dtoverlays](https://github.com/Seeed-Studio/seeed-linux-dtoverlays) while it is built and runs `make overlays/rpi/respeaker-2mic-v2_0-overlay.dtbo`. The package build (`debian/rules`) does the same, so building needs network access, and it uses the state of the default branch at that time. No source is stored in this repository. The overlay is copied to `/boot/firmware/overlays`, where Raspberry Pi OS (Trixie) keeps them, and not installed there by dpkg: that directory is on a FAT partition without hard links, where dpkg cannot replace a file during an upgrade. The change takes effect after a reboot.
 
 ## One driver per system
 

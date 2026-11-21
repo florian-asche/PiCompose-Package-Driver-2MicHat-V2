@@ -1,2 +1,2 @@
 files/usr/* usr/
-build/respeaker-2mic-v2_0.dtbo boot/firmware/overlays/
+build/respeaker-2mic-v2_0.dtbo usr/lib/picompose-driver-2michat-v2/
